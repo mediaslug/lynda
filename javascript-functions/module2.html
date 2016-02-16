@@ -1,0 +1,92 @@
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+
+<script type="text/javascript">
+	var calc = {
+		status: 'Awesome',
+		plus: function(a,b) {
+			return(
+				console.log("--------"),
+				console.log(this),
+				console.log(a+b),
+				console.log(arguments),
+				console.log(this.status)
+			)
+		}
+	}
+
+	calc.plus(2,2)
+
+/* creating an object and adding a function to the object */
+
+	// creating the function, which could be used by any object
+	var speak = function(saywhat) {
+		console.log(saywhat);
+	}
+
+	var Dog = function() {
+		var name, breed;
+		console.dir(this);
+	}
+
+	var Cat = function() {
+		var name, breed;
+		console.dir(this);
+	}	
+
+	// set method of the Dog to be the same as the speak function
+	// this is essentially "adding the method to the class"
+	Dog.prototype.speak = speak;
+
+	// add the speak method to the Cat
+	Cat.prototype.speak = speak;
+
+	// instantiate a dog
+	firstDog = new Dog();
+	firstDog.name = "rover";
+	firstDog.breed = "doberman";
+	firstDog.speak("woof");
+
+	// instantiate a cat
+	firstCat = new Cat();
+	firstCat.name = "spot";
+	firstCat.breed = 'tabby';
+	firstCat.speak = "meow";
+
+
+	// from the call and apply section
+
+	var speak2 = function(what) {
+		console.log(what)
+		console.log(this.love)
+	}
+
+	speak2('moof');
+
+	var saySomething = {normal:"meow", love:"purr"};
+	
+	// binding an object to a function
+	speak2.call(saySomething) // pass the saySomething object to the speak2 function. 
+
+	/* exploring the arguments parameter */
+	// list of elements passed, behaves like an array in many, but not all ways
+
+	// a function without a name is called a function literal
+	var plus = function() {
+		var sum = 0;
+		for (var i = arguments.length - 1; i >= 0; i--) {
+			sum += arguments[i];
+		}
+
+		return sum;
+	}
+
+	console.log(plus(2,2, 3));
+
+</script>
+</body>
+</html>
