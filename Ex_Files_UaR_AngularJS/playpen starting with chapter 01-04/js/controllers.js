@@ -1,6 +1,6 @@
-var myApp = angular.module('myApp', []);
+var artistControllers = angular.module('myApp', []);
 
-myApp.controller("MyController", ['$scope', '$http', function ($scope, $http) {
+artistControllers.controller("ListController", ['$scope', '$http', function ($scope, $http) {
 
 	// create a model manually and place it in the scope variable
 
