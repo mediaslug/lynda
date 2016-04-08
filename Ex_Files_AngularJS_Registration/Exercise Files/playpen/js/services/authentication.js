@@ -7,7 +7,7 @@ myApp.factory('Authentication',['$rootScope', '$firebaseAuth', 'FIREBASE_URL',
         
         return {
             login: function(user) {
-                $rootScope.message = "welcome " + $scope.user.email;
+                $rootScope.message = "welcome " + user.email;
             }, // end login
             
             register: function(user) {
@@ -15,7 +15,7 @@ myApp.factory('Authentication',['$rootScope', '$firebaseAuth', 'FIREBASE_URL',
                     email: user.email,
                     password: user.password
                 }).then(function(regUser) {
-                    $scope.message = "Hi " + user.firstname;
+                    $rootScope.message = "Hi " + user.firstname;
                 }).catch(function(error){
                     $rootScope.message = error.message;
 		        }); // end createUser
@@ -28,25 +28,25 @@ myApp.factory('Authentication',['$rootScope', '$firebaseAuth', 'FIREBASE_URL',
 
 
 
-myApp.controller('RegistrationController', 
-	['$scope', '$firebaseAuth','FIREBASE_URL', 
-	function($scope, $firebaseAuth, FIREBASE_URL){
-
-	//$scope.message = "welcome to the RegistrationController";
-	$scope.login = function () {
-		$scope.message = "welcome " + $scope.user.email;
-	}; // end login
-
-	$scope.register = function() {
-		auth.$createUser({
-			email: $scope.user.email,
-			password: $scope.user.password
-		}).then(function(regUser) {
-			$scope.message = "Hi " + $scope.user.firstname;
-		}).catch(function(error){
-			$scope.message = error.message;
-		}); // end createUser
-
-	}; // end register
-
-}]); // end controller
+//myApp.controller('RegistrationController', 
+//	['$scope', '$firebaseAuth','FIREBASE_URL', 
+//	function($scope, $firebaseAuth, FIREBASE_URL){
+//
+//	//$scope.message = "welcome to the RegistrationController";
+//	$scope.login = function () {
+//		$scope.message = "welcome " + $scope.user.email;
+//	}; // end login
+//
+//	$scope.register = function() {
+//		auth.$createUser({
+//			email: $scope.user.email,
+//			password: $scope.user.password
+//		}).then(function(regUser) {
+//			$scope.message = "Hi " + $scope.user.firstname;
+//		}).catch(function(error){
+//			$scope.message = error.message;
+//		}); // end createUser
+//
+//	}; // end register
+//
+//}]); // end controller
