@@ -6,9 +6,28 @@
 
 
 <script type="text/javascript">
+    
+    // basic invocation
+    
+    function foo (a,b) {
+        var sum;
+        for (i=0; i<=arguments.length-1;i++) {
+            sum += parseInt(arguments[i]);
+            console.warn("arguments" + arguments[i]);
+            console.warn(sum);
+        }
+        return (
+            console.log()
+//            console.log(this)
+        )    
+    }
+
+    // functions as a property of an object
 	var calc = {
 		status: 'Awesome',
 		plus: function(a,b) {
+            
+            // pass a series of commands to the return method
 			return(
 				console.log("--------"),
 				console.log(this),
@@ -21,61 +40,124 @@
 
 	calc.plus(2,2)
 
-/* creating an object and adding a function to the object */
+    
+    
 
-	// creating the function, which could be used by any object
-	var speak = function(saywhat) {
-		console.log(saywhat);
-	}
-
-	var Dog = function() {
+    // constructor invocation
+    
+	var Dog = function() { // constructor names should be capitalized
 		var name, breed;
 		console.dir(this);
 	}
-
-	var Cat = function() {
+    
+    var Cat = function() {
 		var name, breed;
 		console.dir(this);
-	}	
-
-	// set method of the Dog to be the same as the speak function
-	// this is essentially "adding the method to the class"
-	Dog.prototype.speak = speak;
-
-	// add the speak method to the Cat
-	Cat.prototype.speak = speak;
-
-	// instantiate a dog
+	}
+    
+    // instantiate a dog (create a new object based on the Dog function)
 	firstDog = new Dog();
-	firstDog.name = "rover";
+    firstDog.name = "rover";
 	firstDog.breed = "doberman";
+	
+    
+    secondDog = new Dog();
+    secondDog.name = "johnson";
+	secondDog.breed = "poodle";
+    
+    console.log(firstDog.name);
+    console.log(secondDog.name);
+    
+    // let's add some functionality to the dog object. that can be done through the prototype object. 
+    
+    /* you can base the functionality of an object on another object (prototypal inheritance) */
+    var speak = function(saywhat) {
+        console.log(saywhat);
+        
+    }
+	
+    	
+//
+//	// set method of the Dog to be the same as the speak function
+//	// this is essentially "adding the method to the class"
+	Dog.prototype.speak = speak;
+//
+	
+//
+//	// instantiate a dog
+//	firstDog = new Dog();
+//	
 	firstDog.speak("woof");
-
+//
 	// instantiate a cat
 	firstCat = new Cat();
+    
+    // add the speak method to the Cat. multiple objects can inherit the same functionality
+	Cat.prototype.speak = speak;
+    
 	firstCat.name = "spot";
 	firstCat.breed = 'tabby';
-	firstCat.speak = "meow";
+	firstCat.speak("meow");
+    
 
+    // print out the dog and cat
+    
+    console.log(firstCat);
+    console.log(firstDog);
+    
+    
+    /* summary: all objects inherit properties. any instances inherit from the function object*/
 
-	// from the call and apply section
-
+    /* ----------------------- call and apply ------------------------------*/
+    /* also known as indirect invocation and gives you more control over the "this" argument. 
+       you can define the value of the this argument
+       you can also control the arguments you want to pass to the function
+       
+       -- Call passes a value
+       -- Apply lets you pass an array
+       
+    */
+    
+    
+	// this is an example of a normal function invocation
 	var speak2 = function(what) {
 		console.log(what)
-		console.log(this.love)
+		console.log(this) // the this parameter here is bound to the global object (window object)
 	}
-
 	speak2('moof');
-
+    
+    
+    // instead of "normal" invocation, we're going to use the call method to get the this parameter bound to a specific object 
+    
+    /* call and apply take two pameters. what you want the value to be of "this" to be inside of the function as well as the arguments you want to pass to the function*/
+    
+    // call passes a value and apply lets you pass an array
+    
+    var speak3 = function(what) {
+		console.log(this.normal) // the this parameter here is bound to the global object unless i use the call method.
+        console.log(what[0]);
+	}
+    
+    // create an object
 	var saySomething = {normal:"meow", love:"purr"};
-	
-	// binding an object to a function
-	speak2.call(saySomething) // pass the saySomething object to the speak2 function. 
 
-	/* exploring the arguments parameter */
+    
+    
+	// binding an object to a function
+    // pass the saySomething object to the speak3 function. this is setting the "this" argument we can also pass other argument 
+	speak3.call(saySomething, "a string") ; 
+    
+    // apply less you pass an array along with your "this" over-ride
+    speak3.apply(saySomething, ['meouff']);    
+    
+    
+    
+    
+
+	/* ------------------------------- exploring the arguments parameter ------------------------------- */
 	// list of elements passed, behaves like an array in many, but not all ways
 
-	// a function without a name is called a function literal
+	// remember a function without a name is called a function literal
 	var plus = function() {
 		var sum = 0;
 		for (var i = arguments.length - 1; i >= 0; i--) {
@@ -84,8 +166,11 @@
 
 		return sum;
 	}
+//
+   console.log(plus(2,2,3));
+    
+    	/* ------------------------------- exploring the return statement ------------------------------- */
 
-	console.log(plus(2,2,3));
 
 </script>
 </body>
